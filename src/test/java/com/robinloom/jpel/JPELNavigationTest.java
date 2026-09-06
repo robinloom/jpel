@@ -1,5 +1,6 @@
 package com.robinloom.jpel;
 
+import com.robinloom.jpel.fixtures.TestData;
 import com.robinloom.jpel.fixtures.TestData.*;
 import org.junit.jupiter.api.Test;
 
