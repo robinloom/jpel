@@ -1,8 +1,8 @@
 package com.robinloom.jpel;
 
-import com.robinloom.jpath.evaluator.Evaluator;
-import com.robinloom.jpath.exception.NonUniqueResultException;
-import com.robinloom.jpath.parser.ast.PathNode;
+import com.robinloom.jpel.evaluator.Evaluator;
+import com.robinloom.jpel.exception.NonUniqueResultException;
+import com.robinloom.jpel.parser.ast.PathNode;
 
 import java.util.Collection;
 import java.util.HashMap;

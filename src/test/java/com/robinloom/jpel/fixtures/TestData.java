@@ -1,4 +1,4 @@
-package com.robinloom.jpath.fixtures;
+package com.robinloom.jpel.fixtures;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package com.robinloom.jpel.evaluator;
 
-import com.robinloom.jpath.parser.ast.FilterNode;
-import com.robinloom.jpath.parser.ast.PathNode;
-import com.robinloom.jpath.parser.ast.SegmentNode;
+import com.robinloom.jpel.parser.ast.FilterNode;
+import com.robinloom.jpel.parser.ast.PathNode;
+import com.robinloom.jpel.parser.ast.SegmentNode;
 
 import java.util.ArrayList;
 import java.util.Collection;

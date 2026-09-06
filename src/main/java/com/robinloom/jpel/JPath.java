@@ -1,9 +1,9 @@
 package com.robinloom.jpel;
 
-import com.robinloom.jpath.lexer.Lexer;
-import com.robinloom.jpath.lexer.Token;
-import com.robinloom.jpath.parser.Parser;
-import com.robinloom.jpath.parser.ast.PathNode;
+import com.robinloom.jpel.lexer.Lexer;
+import com.robinloom.jpel.lexer.Token;
+import com.robinloom.jpel.parser.Parser;
+import com.robinloom.jpel.parser.ast.PathNode;
 
 import java.util.List;
 

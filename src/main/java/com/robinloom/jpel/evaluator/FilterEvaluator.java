@@ -1,16 +1,16 @@
 package com.robinloom.jpel.evaluator;
 
 import com.robinloom.jpel.exception.MissingParameterException;
-import com.robinloom.jpath.parser.ComparisonOperator;
-import com.robinloom.jpath.parser.CollectionOperator;
-import com.robinloom.jpath.parser.ast.BinaryLogicalNode;
-import com.robinloom.jpath.parser.ast.ConditionNode;
-import com.robinloom.jpath.parser.ast.CollectionConditionNode;
-import com.robinloom.jpath.parser.ast.LiteralNode;
-import com.robinloom.jpath.parser.ast.LogicalNode;
-import com.robinloom.jpath.parser.ast.NegationNode;
-import com.robinloom.jpath.parser.ast.ParameterNode;
-import com.robinloom.jpath.parser.ast.ValueNode;
+import com.robinloom.jpel.parser.ComparisonOperator;
+import com.robinloom.jpel.parser.CollectionOperator;
+import com.robinloom.jpel.parser.ast.BinaryLogicalNode;
+import com.robinloom.jpel.parser.ast.ConditionNode;
+import com.robinloom.jpel.parser.ast.CollectionConditionNode;
+import com.robinloom.jpel.parser.ast.LiteralNode;
+import com.robinloom.jpel.parser.ast.LogicalNode;
+import com.robinloom.jpel.parser.ast.NegationNode;
+import com.robinloom.jpel.parser.ast.ParameterNode;
+import com.robinloom.jpel.parser.ast.ValueNode;
 
 import java.util.Collection;
 import java.util.List;

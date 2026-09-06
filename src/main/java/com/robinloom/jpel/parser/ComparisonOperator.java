@@ -1,6 +1,6 @@
 package com.robinloom.jpel.parser;
 
-import com.robinloom.jpath.lexer.TokenType;
+import com.robinloom.jpel.lexer.TokenType;
 
 public enum ComparisonOperator {
     EQ,

@@ -1,9 +1,9 @@
 package com.robinloom.jpel.parser;
 
 import com.robinloom.jpel.exception.ParserException;
-import com.robinloom.jpath.lexer.Token;
-import com.robinloom.jpath.lexer.TokenType;
-import com.robinloom.jpath.parser.ast.*;
+import com.robinloom.jpel.lexer.Token;
+import com.robinloom.jpel.lexer.TokenType;
+import com.robinloom.jpel.parser.ast.*;
 import com.robinloom.jpel.parser.CollectionOperator;
 
 import java.util.ArrayList;
