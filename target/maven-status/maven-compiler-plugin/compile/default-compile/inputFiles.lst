@@ -1,8 +1,10 @@
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/Expression.java
-/Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/JPath.java
+/Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/JPEL.java
+/Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/evaluator/AggregationEvaluator.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/evaluator/Evaluator.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/evaluator/FilterEvaluator.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/evaluator/PropertyResolver.java
+/Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/evaluator/SortEvaluator.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/exception/EvaluatorException.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/exception/LexerException.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/exception/MissingParameterException.java
@@ -16,6 +18,8 @@
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/LogicalOperator.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/Parser.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/ASTNode.java
+/Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/AggregationNode.java
+/Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/AggregationType.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/BinaryLogicalNode.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/CollectionConditionNode.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/ConditionNode.java
@@ -26,4 +30,6 @@
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/ParameterNode.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/PathNode.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/SegmentNode.java
+/Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/SortDirection.java
+/Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/SortNode.java
 /Users/robin/Dev/Java/jpel/src/main/java/com/robinloom/jpel/parser/ast/ValueNode.java

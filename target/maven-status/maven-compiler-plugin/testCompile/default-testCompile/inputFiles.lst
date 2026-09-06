@@ -1,5 +1,9 @@
-/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPathAPITest.java
-/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPathFilteringTest.java
-/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPathNavigationTest.java
-/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPathReflectionTest.java
+/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPELAPITest.java
+/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPELAggregationTest.java
+/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPELErrorMessagesTest.java
+/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPELFilteringTest.java
+/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPELNavigationTest.java
+/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPELParameterBindingTest.java
+/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPELReflectionTest.java
+/Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/JPELSortTest.java
 /Users/robin/Dev/Java/jpel/src/test/java/com/robinloom/jpel/fixtures/TestData.java

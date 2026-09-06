@@ -3,7 +3,9 @@ package com.robinloom.jpel.evaluator;
 import com.robinloom.jpel.exception.EvaluatorException;
 import com.robinloom.jpel.parser.ast.AggregationNode;
 import com.robinloom.jpel.parser.ast.AggregationType;
+import com.robinloom.jpel.parser.ast.ASTNode;
 import com.robinloom.jpel.parser.ast.PathNode;
+import com.robinloom.jpel.parser.ast.SortNode;
 import com.robinloom.jpel.parser.ast.SegmentNode;
 
 import java.util.Collection;
@@ -13,17 +15,17 @@ import java.util.Optional;
 public final class AggregationEvaluator {
 
     private final Object root;
-    private final PathNode pathNode;
+    private final ASTNode sourceNode;
     private final Map<String, Object> bindings;
 
-    public AggregationEvaluator(Object root, PathNode pathNode, Map<String, Object> bindings) {
+    public AggregationEvaluator(Object root, ASTNode sourceNode, Map<String, Object> bindings) {
         this.root = root;
-        this.pathNode = pathNode;
+        this.sourceNode = sourceNode;
         this.bindings = bindings;
     }
 
     public Object eval(AggregationNode aggregation) {
-        Object resolved = new Evaluator(root, aggregation.source(), bindings).eval();
+        Object resolved = resolveSource(aggregation.source());
 
         if (!(resolved instanceof Collection<?> collection)) {
             throw new EvaluatorException(
@@ -115,5 +117,18 @@ public final class AggregationEvaluator {
 
     private Object resolveProperty(Object item, String property) {
         return PropertyResolver.resolve(item, property);
+    }
+
+    private Object resolveSource(ASTNode source) {
+        if (source instanceof SortNode sort) {
+            return new SortEvaluator(root, sort.source(), bindings).eval(sort);
+        }
+        if (source instanceof PathNode path) {
+            return new Evaluator(root, path, bindings).eval();
+        }
+        if (source instanceof AggregationNode agg) {
+            return new AggregationEvaluator(root, agg.source(), bindings).eval(agg);
+        }
+        throw new EvaluatorException("Unsupported source type: " + source.getClass().getSimpleName(), null);
     }
 }

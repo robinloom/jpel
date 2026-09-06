@@ -2,10 +2,12 @@ package com.robinloom.jpel;
 
 import com.robinloom.jpel.evaluator.Evaluator;
 import com.robinloom.jpel.evaluator.AggregationEvaluator;
+import com.robinloom.jpel.evaluator.SortEvaluator;
 import com.robinloom.jpel.exception.NonUniqueResultException;
 import com.robinloom.jpel.parser.ast.ASTNode;
 import com.robinloom.jpel.parser.ast.AggregationNode;
 import com.robinloom.jpel.parser.ast.PathNode;
+import com.robinloom.jpel.parser.ast.SortNode;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -63,8 +65,12 @@ public class Expression {
 
     public Object eval(Object object) {
         if (ast instanceof AggregationNode aggregation) {
-            return new AggregationEvaluator(object, (PathNode) aggregation.source(), bindings)
+            return new AggregationEvaluator(object, aggregation.source(), bindings)
                 .eval(aggregation);
+        }
+        if (ast instanceof SortNode sort) {
+            return new SortEvaluator(object, sort.source(), bindings)
+                .eval(sort);
         }
         return new Evaluator(object, (PathNode) ast, bindings).eval();
     }

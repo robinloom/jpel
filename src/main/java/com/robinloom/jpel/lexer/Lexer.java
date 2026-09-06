@@ -24,6 +24,9 @@ public class Lexer {
         map.put("avg", TokenType.AVG);
         map.put("min", TokenType.MIN);
         map.put("max", TokenType.MAX);
+        map.put("sort", TokenType.SORT);
+        map.put("asc", TokenType.ASC);
+        map.put("desc", TokenType.DESC);
         KEYWORD_OPERATORS = Map.copyOf(map);
     }
 

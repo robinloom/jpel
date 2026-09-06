@@ -27,19 +27,52 @@ public final class Parser {
             segments.add(parseSegment());
         } while (match(TokenType.DOT));
 
-        PathNode pathNode = new PathNode(segments);
+        ASTNode result = new PathNode(segments);
 
-        if (match(TokenType.PIPE)) {
-            ASTNode aggregation = parseAggregation(pathNode);
-            consume(TokenType.EOF);
-            return aggregation;
+        while (match(TokenType.PIPE)) {
+            if (peek().type() == TokenType.SORT) {
+                result = parseSort(result);
+            } else if (isAggregationFunction(peek().type())) {
+                result = parseAggregation(result);
+                break;
+            } else {
+                throw new ParserException("Expected aggregation or sort function", cursor);
+            }
         }
 
         consume(TokenType.EOF);
-        return pathNode;
+        return result;
     }
 
-    private AggregationNode parseAggregation(PathNode source) {
+    private boolean isAggregationFunction(TokenType type) {
+        return type == TokenType.COUNT || type == TokenType.SUM || type == TokenType.AVG
+            || type == TokenType.MIN || type == TokenType.MAX;
+    }
+
+    private SortNode parseSort(ASTNode source) {
+        consume(TokenType.SORT);
+        consume(TokenType.LPAREN);
+
+        StringBuilder propBuilder = new StringBuilder();
+        propBuilder.append(consume(TokenType.IDENTIFIER).value());
+
+        while (match(TokenType.DOT)) {
+            propBuilder.append(".").append(consume(TokenType.IDENTIFIER).value());
+        }
+
+        String property = propBuilder.toString();
+
+        SortDirection direction = SortDirection.ASC;
+        if (peek().type() == TokenType.ASC || peek().type() == TokenType.DESC) {
+            direction = peek().type() == TokenType.ASC ? SortDirection.ASC : SortDirection.DESC;
+            advance();
+        }
+
+        consume(TokenType.RPAREN);
+        return new SortNode(source, property, direction);
+    }
+
+    private AggregationNode parseAggregation(ASTNode source) {
         Token token = peek();
         AggregationType type = switch (token.type()) {
             case COUNT -> AggregationType.COUNT;

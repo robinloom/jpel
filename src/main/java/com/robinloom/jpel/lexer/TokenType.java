@@ -44,6 +44,9 @@ public enum TokenType {
     AVG,
     MIN,
     MAX,
+    SORT,
+    ASC,
+    DESC,
 
     EOF;
 
