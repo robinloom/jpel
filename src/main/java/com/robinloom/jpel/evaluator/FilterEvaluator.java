@@ -1,5 +1,6 @@
 package com.robinloom.jpel.evaluator;
 
+import com.robinloom.jpel.exception.EvaluatorException;
 import com.robinloom.jpel.exception.MissingParameterException;
 import com.robinloom.jpel.parser.ComparisonOperator;
 import com.robinloom.jpel.parser.CollectionOperator;
@@ -52,7 +53,7 @@ public final class FilterEvaluator {
             return evaluateCollectionCondition(candidate, propertyPath, operator, predicate);
         }
 
-        throw new IllegalStateException("Unknown logical node: " + node.getClass());
+        throw new EvaluatorException("Unsupported logical node type: " + node.getClass().getSimpleName(), null);
     }
 
     private boolean evaluateLogical(Object candidate, BinaryLogicalNode logical) {
@@ -100,7 +101,10 @@ public final class FilterEvaluator {
     private int compareComparable(Object left, Object right) {
 
         if (left == null || right == null) {
-            throw new RuntimeException("Cannot compare null values");
+            throw new EvaluatorException(
+                "Cannot compare null values. Left: " + left + ", Right: " + right,
+                null
+            );
         }
 
         if (left instanceof Number l && right instanceof Number r) {
@@ -108,10 +112,22 @@ public final class FilterEvaluator {
         }
 
         if (!(left instanceof Comparable<?> comparable)) {
-            throw new RuntimeException(left + " is not Comparable");
+            throw new EvaluatorException(
+                "Value is not comparable: " + left.getClass().getSimpleName() +
+                ". Expected a type implementing Comparable (Number, String, etc.)",
+                null
+            );
         }
 
-        return ((Comparable<Object>) comparable).compareTo(right);
+        try {
+            return ((Comparable<Object>) comparable).compareTo(right);
+        } catch (ClassCastException e) {
+            throw new EvaluatorException(
+                "Type mismatch in comparison: cannot compare " + left.getClass().getSimpleName() +
+                " with " + (right != null ? right.getClass().getSimpleName() : "null"),
+                e
+            );
+        }
     }
 
     private Object reflect(Object object, String property) {
@@ -123,17 +139,26 @@ public final class FilterEvaluator {
             return false;
         }
         if (!(left instanceof String leftValue)) {
-            throw new RuntimeException(left + " is not a String");
+            throw new EvaluatorException(
+                "String operation requires a String value, but got " + left.getClass().getSimpleName(),
+                null
+            );
         }
         if (!(right instanceof String rightValue)) {
-            throw new RuntimeException(right + " is not a String literal");
+            throw new EvaluatorException(
+                "String operation requires a String pattern argument, but got " + right.getClass().getSimpleName(),
+                null
+            );
         }
         return predicate.test(leftValue, rightValue);
     }
 
     private boolean containsValue(Object left, Object right) {
         if (!(right instanceof List<?> list)) {
-            throw new RuntimeException(right + " is not a list literal");
+            throw new EvaluatorException(
+                "List membership test (in/not in) requires a list on the right side, but got " + right.getClass().getSimpleName(),
+                null
+            );
         }
         if (left instanceof Number leftNumber) {
             return list.stream().anyMatch(v -> v instanceof Number r
@@ -158,7 +183,10 @@ public final class FilterEvaluator {
         }
 
         if (!(resolved instanceof Collection<?> collection)) {
-            throw new RuntimeException(resolved + " is not a Collection");
+            throw new EvaluatorException(
+                "Collection operation (" + operator + ") requires a Collection type, but got " + resolved.getClass().getSimpleName(),
+                null
+            );
         }
 
         return switch (operator) {
@@ -174,10 +202,13 @@ public final class FilterEvaluator {
         }
         if (valueNode instanceof ParameterNode(String name)) {
             if (!bindings.containsKey(name)) {
-                throw new MissingParameterException("Missing binding for parameter :" + name);
+                throw new MissingParameterException(
+                    "Parameter binding not found: '" + name + "'. " +
+                    "Use expression.setParameter(\"" + name + "\", value) before evaluating."
+                );
             }
             return bindings.get(name);
         }
-        throw new IllegalStateException("Unknown value node: " + valueNode.getClass());
+        throw new EvaluatorException("Unsupported value node type: " + valueNode.getClass().getSimpleName(), null);
     }
 }

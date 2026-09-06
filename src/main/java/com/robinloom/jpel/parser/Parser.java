@@ -20,15 +20,47 @@ public final class Parser {
         this.tokens = tokens;
     }
 
-    public PathNode parse() {
+    public ASTNode parse() {
         List<SegmentNode> segments = new ArrayList<>();
 
         do {
             segments.add(parseSegment());
         } while (match(TokenType.DOT));
 
+        PathNode pathNode = new PathNode(segments);
+
+        if (match(TokenType.PIPE)) {
+            ASTNode aggregation = parseAggregation(pathNode);
+            consume(TokenType.EOF);
+            return aggregation;
+        }
+
         consume(TokenType.EOF);
-        return new PathNode(segments);
+        return pathNode;
+    }
+
+    private AggregationNode parseAggregation(PathNode source) {
+        Token token = peek();
+        AggregationType type = switch (token.type()) {
+            case COUNT -> AggregationType.COUNT;
+            case SUM -> AggregationType.SUM;
+            case AVG -> AggregationType.AVG;
+            case MIN -> AggregationType.MIN;
+            case MAX -> AggregationType.MAX;
+            default -> throw new ParserException("Expected aggregation function", cursor);
+        };
+        advance();
+
+        consume(TokenType.LPAREN);
+
+        java.util.Optional<String> property = java.util.Optional.empty();
+        if (type != AggregationType.COUNT && !peek().type().equals(TokenType.RPAREN)) {
+            Token propToken = consume(TokenType.IDENTIFIER);
+            property = java.util.Optional.of(propToken.value());
+        }
+
+        consume(TokenType.RPAREN);
+        return new AggregationNode(source, type, property);
     }
 
     private Token peek() {

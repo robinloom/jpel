@@ -3,19 +3,29 @@ package com.robinloom.jpel.lexer;
 import com.robinloom.jpel.exception.LexerException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Lexer {
 
-    private static final Map<String, TokenType> KEYWORD_OPERATORS = Map.of(
-            "contains", TokenType.CONTAINS,
-            "startsWith", TokenType.STARTS_WITH,
-            "endsWith", TokenType.ENDS_WITH,
-            "matches", TokenType.MATCHES,
-            "in", TokenType.IN,
-            "not", TokenType.NOT
-    );
+    private static final Map<String, TokenType> KEYWORD_OPERATORS;
+
+    static {
+        Map<String, TokenType> map = new HashMap<>();
+        map.put("contains", TokenType.CONTAINS);
+        map.put("startsWith", TokenType.STARTS_WITH);
+        map.put("endsWith", TokenType.ENDS_WITH);
+        map.put("matches", TokenType.MATCHES);
+        map.put("in", TokenType.IN);
+        map.put("not", TokenType.NOT);
+        map.put("count", TokenType.COUNT);
+        map.put("sum", TokenType.SUM);
+        map.put("avg", TokenType.AVG);
+        map.put("min", TokenType.MIN);
+        map.put("max", TokenType.MAX);
+        KEYWORD_OPERATORS = Map.copyOf(map);
+    }
 
     private final List<Token> tokens = new ArrayList<>();
     private final String expression;
@@ -240,7 +250,8 @@ public class Lexer {
             advance();
             advance();
         } else {
-            throw new LexerException("Unexpected token: " + peekNext() + " at position " + cursor);
+            tokens.add(new Token(TokenType.PIPE, "|", cursor));
+            advance();
         }
     }
 

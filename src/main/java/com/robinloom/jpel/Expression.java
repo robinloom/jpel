@@ -1,7 +1,10 @@
 package com.robinloom.jpel;
 
 import com.robinloom.jpel.evaluator.Evaluator;
+import com.robinloom.jpel.evaluator.AggregationEvaluator;
 import com.robinloom.jpel.exception.NonUniqueResultException;
+import com.robinloom.jpel.parser.ast.ASTNode;
+import com.robinloom.jpel.parser.ast.AggregationNode;
 import com.robinloom.jpel.parser.ast.PathNode;
 
 import java.util.Collection;
@@ -11,10 +14,10 @@ import java.util.Map;
 
 public class Expression {
 
-    private final PathNode ast;
+    private final ASTNode ast;
     private final Map<String, Object> bindings = new HashMap<>();
 
-    public Expression(PathNode ast) {
+    public Expression(ASTNode ast) {
         this.ast = ast;
     }
 
@@ -59,6 +62,10 @@ public class Expression {
     }
 
     public Object eval(Object object) {
-        return new Evaluator(object, ast, bindings).eval();
+        if (ast instanceof AggregationNode aggregation) {
+            return new AggregationEvaluator(object, (PathNode) aggregation.source(), bindings)
+                .eval(aggregation);
+        }
+        return new Evaluator(object, (PathNode) ast, bindings).eval();
     }
 }

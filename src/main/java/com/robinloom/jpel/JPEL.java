@@ -3,7 +3,7 @@ package com.robinloom.jpel;
 import com.robinloom.jpel.lexer.Lexer;
 import com.robinloom.jpel.lexer.Token;
 import com.robinloom.jpel.parser.Parser;
-import com.robinloom.jpel.parser.ast.PathNode;
+import com.robinloom.jpel.parser.ast.ASTNode;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public final class JPEL {
         List<Token> tokens = new Lexer(expression).tokenize();
 
         Parser parser = new Parser(tokens);
-        PathNode ast = parser.parse();
+        ASTNode ast = parser.parse();
 
         return new Expression(ast);
     }

@@ -38,6 +38,13 @@ public enum TokenType {
 
     PARAMETER,
 
+    PIPE,
+    COUNT,
+    SUM,
+    AVG,
+    MIN,
+    MAX,
+
     EOF;
 
     public static final Set<TokenType> LITERAL_TYPES = Set.of(

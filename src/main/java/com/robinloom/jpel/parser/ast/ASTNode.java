@@ -1,4 +1,4 @@
 package com.robinloom.jpel.parser.ast;
 
-interface ASTNode {
+public interface ASTNode {
 }
