@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="186165f2-16de-4bec-8a7c-ad7238ac88c4" name="Changes" comment="Added support for collection operators (`any`, `all`, `none`) in JPath filtering, including parser and evaluator changes." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="42" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Record" />
+        <option value="Class" />
+        <option value="Exception" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;robinloom&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/robinloom/jpath.git&quot;,
+    &quot;accountId&quot;: &quot;8abc379b-1e36-49b5-94a0-a5491e865329&quot;
+  }
+}</component>
+  <component name="GroovyConsoleState">
+    <option name="list">
+      <list>
+        <Entry>
+          <option name="moduleName" value="jpath" />
+          <option name="url" value="file://$APPLICATION_CONFIG_DIR$/consoles/groovy/groovy_console_3.groovy" />
+        </Entry>
+        <Entry>
+          <option name="moduleName" value="jpath" />
+          <option name="url" value="file://$APPLICATION_CONFIG_DIR$/consoles/groovy/groovy_console_2.groovy" />
+        </Entry>
+      </list>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/Library/Java/JavaVirtualMachines/azul-25.0.3/Contents/Home/lib/src.zip!/java.base/java/lang/Integer.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/Library/Java/JavaVirtualMachines/azul-25.0.3/Contents/Home/lib/src.zip!/java.base/java/lang/Number.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/Library/Java/JavaVirtualMachines/azul-25.0.3/Contents/Home/lib/src.zip!/java.base/java/lang/reflect/AccessibleObject.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/Library/Java/JavaVirtualMachines/azul-25.0.3/Contents/Home/lib/src.zip!/java.desktop/java/beans/Expression.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0000000000003353" />
+      <entry key="MS500" value="1.003199362101015" />
+      <entry key="S2" value="1.2378295690829497" />
+      <entry key="S5" value="1.5629973356619313" />
+      <entry key="S10" value="1.7503314838535908" />
+      <entry key="S30" value="1.9086941314013688" />
+      <entry key="S60" value="1.9532565276476204" />
+      <entry key="M2" value="1.9788593406150567" />
+      <entry key="M5" value="2.855522135995174" />
+      <entry key="M10" value="14.647756374881741" />
+      <entry key="M15" value="38.052970575724764" />
+      <entry key="M30" value="119.58346432199477" />
+      <entry key="H1" value="243.333278063642" />
+      <entry key="H2" value="409.2152265570528" />
+      <entry key="H4" value="628.1028062278181" />
+      <entry key="D1" value="1118.9986618858875" />
+      <entry key="W1" value="1273.061517476994" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="1.9117226575275324E-266" />
+      <entry key="S5" value="5.159052589769363E-107" />
+      <entry key="S10" value="7.182654516102915E-54" />
+      <entry key="S30" value="1.9294268852411876E-18" />
+      <entry key="S60" value="1.3890381151161529E-9" />
+      <entry key="M2" value="3.72698569299386E-5" />
+      <entry key="M5" value="0.01704621224111439" />
+      <entry key="M10" value="0.14897597428295326" />
+      <entry key="M15" value="0.4050265470154715" />
+      <entry key="M30" value="3.1774653062071136" />
+      <entry key="H1" value="19.990030688941022" />
+      <entry key="H2" value="71.87117546489439" />
+      <entry key="H4" value="166.97032635776498" />
+      <entry key="D1" value="402.23819155565883" />
+      <entry key="W1" value="476.96833396919516" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9794202975872552" />
+      <entry key="MS500" value="0.9990358370528136" />
+      <entry key="S2" value="1.236543240796212" />
+      <entry key="S5" value="1.5623474384957532" />
+      <entry key="S10" value="1.749967550493886" />
+      <entry key="S30" value="1.9085618353908786" />
+      <entry key="S60" value="1.95318883537272" />
+      <entry key="M2" value="1.978861756570479" />
+      <entry key="M5" value="2.872483669970416" />
+      <entry key="M10" value="14.79641833420403" />
+      <entry key="M15" value="38.457387645124726" />
+      <entry key="M30" value="122.75835442762674" />
+      <entry key="H1" value="263.31473596094224" />
+      <entry key="H2" value="481.0693485543652" />
+      <entry key="H4" value="795.0518391209083" />
+      <entry key="D1" value="1521.2277751517927" />
+      <entry key="W1" value="1750.0282990756684" />
+    </decayedShown>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3F63tItQ29LWjy2kM83JlkiJttU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.JPath.executor": "Run",
+    "Application.Lexer.executor": "Run",
+    "Groovy.Last.Module.Chosen": "jpath",
+    "JUnit.JPathAPITest.executor": "Run",
+    "JUnit.JPathFilteringTest.executor": "Run",
+    "JUnit.JPathNavigationTest.executor": "Run",
+    "JUnit.JPathParameterBindingTest.executor": "Run",
+    "JUnit.JPathTest.executor": "Run",
+    "JUnit.JPathTest.filterWithAnd.executor": "Run",
+    "JUnit.JPathTest.filterWithLiteralFirst.executor": "Run",
+    "JUnit.JPathTest.filterWithOr.executor": "Run",
+    "JUnit.JPathTest.filterWithParentheses.executor": "Run",
+    "JUnit.JPathTest.filteredByBoolean.executor": "Run",
+    "JUnit.JPathTest.filteredByNull.executor": "Run",
+    "JUnit.JPathTest.filteredByNumber.executor": "Run",
+    "JUnit.JPathTest.filteredByString.executor": "Run",
+    "JUnit.JPathTest.foo.executor": "Run",
+    "JUnit.JPathTest.getResultList.executor": "Run",
+    "JUnit.JPathTest.getSingleResult.executor": "Run",
+    "JUnit.JPathTest.negativeIndex.executor": "Run",
+    "JUnit.JPathTest.nestedCollections.executor": "Run",
+    "JUnit.JPathTest.propertyPathWithCollection.executor": "Run",
+    "JUnit.JPathTest.propertyPathWithCollectionIndex.executor": "Run",
+    "JUnit.JPathTest.returnNullWhenIntermediatePropertyIsNull.executor": "Run",
+    "JUnit.JPathTest.shouldEvaluateFilterExpressio.executor": "Run",
+    "JUnit.JPathTest.shouldEvaluateFilterExpression.executor": "Run",
+    "JUnit.JPathTest.shouldEvaluatePropertyPathWithCollection.executor": "Run",
+    "JUnit.JPathTest.shouldEvaluateSimplePropertyPath.executor": "Run",
+    "JUnit.JPathTest.shouldNavigateOptionalValues.executor": "Run",
+    "JUnit.JPathTest.simplePropertyPath.executor": "Run",
+    "Maven.jpath [clean,install].executor": "Run",
+    "Maven.jpath [clean].executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/robin/Dev/Java/jpel",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.robinloom.jpath.exception" />
+      <recent name="com.robinloom.jpath.parser.ast" />
+      <recent name="com.robinloom.jpath.parser" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.robinloom.jpath" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.com.robinloom.jpath in jpath">
+    <configuration name="JPathAPITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jpath" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.robinloom.jpath.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.robinloom.jpath" />
+      <option name="MAIN_CLASS_NAME" value="com.robinloom.jpath.JPathAPITest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JPathFilteringTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jpath" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.robinloom.jpath.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.robinloom.jpath" />
+      <option name="MAIN_CLASS_NAME" value="com.robinloom.jpath.JPathFilteringTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JPathNavigationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jpath" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.robinloom.jpath.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.robinloom.jpath" />
+      <option name="MAIN_CLASS_NAME" value="com.robinloom.jpath.JPathNavigationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JPathParameterBindingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jpath" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.robinloom.jpath.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.robinloom.jpath" />
+      <option name="MAIN_CLASS_NAME" value="com.robinloom.jpath.JPathParameterBindingTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.robinloom.jpath in jpath" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jpath" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.robinloom.jpath.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.robinloom.jpath" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.com.robinloom.jpath in jpath" />
+        <item itemvalue="JUnit.JPathParameterBindingTest" />
+        <item itemvalue="JUnit.JPathNavigationTest" />
+        <item itemvalue="JUnit.JPathFilteringTest" />
+        <item itemvalue="JUnit.JPathAPITest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.27258.48" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.27258.48" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="186165f2-16de-4bec-8a7c-ad7238ac88c4" name="Changes" comment="" />
+      <created>1781381904615</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1781381904615</updated>
+      <workItem from="1781381905628" duration="2826000" />
+      <workItem from="1781384754011" duration="153000" />
+      <workItem from="1781425700041" duration="9804000" />
+      <workItem from="1781441163535" duration="9156000" />
+      <workItem from="1781891112992" duration="8928000" />
+      <workItem from="1781955362421" duration="4125000" />
+      <workItem from="1781960298779" duration="3469000" />
+      <workItem from="1781973749905" duration="4156000" />
+      <workItem from="1781977933299" duration="522000" />
+      <workItem from="1782640466709" duration="2117000" />
+      <workItem from="1783247918171" duration="2427000" />
+      <workItem from="1784992390171" duration="56000" />
+      <workItem from="1784992469910" duration="4190000" />
+      <workItem from="1785069424993" duration="2370000" />
+      <workItem from="1787671107949" duration="3018000" />
+      <workItem from="1787754097735" duration="2909000" />
+      <workItem from="1787944317036" duration="1440000" />
+      <workItem from="1788681218330" duration="6096000" />
+      <workItem from="1788689139492" duration="265000" />
+    </task>
+    <task id="LOCAL-00001" summary="Implemented first version of Lexer">
+      <option name="closed" value="true" />
+      <created>1781433349935</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1781433349935</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Implemented first version of Parser">
+      <option name="closed" value="true" />
+      <created>1781433560042</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1781433560042</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Implemented first version of Evaluator">
+      <option name="closed" value="true" />
+      <created>1781435618358</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1781435618358</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added collection handling in Evaluator and extended JPathTest with collection support">
+      <option name="closed" value="true" />
+      <created>1781443546654</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1781443546654</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added support for indexed collection access, null handling, and optional values in Evaluator; updated Lexer, Parser, and tests">
+      <option name="closed" value="true" />
+      <created>1781448296352</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1781448296352</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Enhanced Evaluator to support nested collection flattening">
+      <option name="closed" value="true" />
+      <created>1781449277664</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1781449277664</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added support for filter expressions in Evaluator and Parser; enhanced Lexer, AST Nodes, and tests to allow property-based filtering">
+      <option name="closed" value="true" />
+      <created>1781900015437</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1781900015437</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Extended JPath with additional filter operators and boolean/null filtering support">
+      <option name="closed" value="true" />
+      <created>1781956850458</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1781956850458</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added support for negative indexing in collection access">
+      <option name="closed" value="true" />
+      <created>1781958305196</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1781958305196</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added support for logical operators (AND, OR) in JPath filtering">
+      <option name="closed" value="true" />
+      <created>1781974108167</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1781974108167</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added `getSingleResult` and `getResultList` methods to `Expression`">
+      <option name="closed" value="true" />
+      <created>1781977737103</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1781977737103</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Refactored `Parser` to support parenthesized and chained logical expressions; added literal-first conditions">
+      <option name="closed" value="true" />
+      <created>1784993265635</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1784993265635</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added support for long and double comparison">
+      <option name="closed" value="true" />
+      <created>1784994676751</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1784994676751</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added support for nested property access in filtering">
+      <option name="closed" value="true" />
+      <created>1784995122022</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1784995122022</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added support for negation (`!`) in JPath filtering">
+      <option name="closed" value="true" />
+      <created>1784995688720</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1784995688720</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added support for negation (`!`) in JPath filtering (2)">
+      <option name="closed" value="true" />
+      <created>1784995832251</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1784995832251</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Replaced reflective property access with `PropertyResolver`.">
+      <option name="closed" value="true" />
+      <created>1788682470724</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1788682470724</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Tests">
+      <option name="closed" value="true" />
+      <created>1788683614196</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1788683614196</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Added support for string-matching functions (`contains`, `startsWith`, `endsWith`, `matches`) in JPath filtering">
+      <option name="closed" value="true" />
+      <created>1788684766819</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1788684766819</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added support for `in` and `not in` operators in JPath filtering, including list parsing and evaluation">
+      <option name="closed" value="true" />
+      <created>1788685489544</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1788685489544</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added support for collection operators (`any`, `all`, `none`) in JPath filtering, including parser and evaluator changes.">
+      <option name="closed" value="true" />
+      <created>1788686584555</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1788686584555</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Implemented first version of Lexer" />
+    <MESSAGE value="Implemented first version of Parser" />
+    <MESSAGE value="Implemented first version of Evaluator" />
+    <MESSAGE value="Added collection handling in Evaluator and extended JPathTest with collection support" />
+    <MESSAGE value="Added support for indexed collection access, null handling, and optional values in Evaluator; updated Lexer, Parser, and tests" />
+    <MESSAGE value="Enhanced Evaluator to support nested collection flattening" />
+    <MESSAGE value="Added support for filter expressions in Evaluator and Parser; enhanced Lexer, AST Nodes, and tests to allow property-based filtering" />
+    <MESSAGE value="Extended JPath with additional filter operators and boolean/null filtering support" />
+    <MESSAGE value="Added support for negative indexing in collection access" />
+    <MESSAGE value="Added support for logical operators (AND, OR) in JPath filtering" />
+    <MESSAGE value="Added `getSingleResult` and `getResultList` methods to `Expression`" />
+    <MESSAGE value="Refactored `Parser` to support parenthesized and chained logical expressions; added literal-first conditions" />
+    <MESSAGE value="Added support for long and double comparison" />
+    <MESSAGE value="Added support for nested property access in filtering" />
+    <MESSAGE value="Added support for negation (`!`) in JPath filtering" />
+    <MESSAGE value="Added support for negation (`!`) in JPath filtering (2)" />
+    <MESSAGE value="Removed `JPathTest` and migrated property reflection to the `PropertyResolver`." />
+    <MESSAGE value="Replaced reflective property access with `PropertyResolver`." />
+    <MESSAGE value="Tests" />
+    <MESSAGE value="Added support for string-matching functions (`contains`, `startsWith`, `endsWith`, `matches`) in JPath filtering" />
+    <MESSAGE value="Added support for `in` and `not in` operators in JPath filtering, including list parsing and evaluation" />
+    <MESSAGE value="Added support for collection operators (`any`, `all`, `none`) in JPath filtering, including parser and evaluator changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added support for collection operators (`any`, `all`, `none`) in JPath filtering, including parser and evaluator changes." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
