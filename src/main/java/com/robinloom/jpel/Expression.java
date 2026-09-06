@@ -63,6 +63,28 @@ public class Expression {
         return List.of(type.cast(result));
     }
 
+    public <T> java.util.Optional<T> getOptionalResult(Object object, Class<T> type) {
+        Object result = eval(object);
+
+        if (result == null) {
+            return java.util.Optional.empty();
+        }
+
+        if (result instanceof Collection<?> collection) {
+            if (collection.isEmpty()) {
+                return java.util.Optional.empty();
+            }
+
+            if (collection.size() > 1) {
+                throw new NonUniqueResultException("Expected a single result, but got " + collection.size());
+            }
+
+            return java.util.Optional.of(type.cast(collection.iterator().next()));
+        }
+
+        return java.util.Optional.of(type.cast(result));
+    }
+
     public Object eval(Object object) {
         if (ast instanceof AggregationNode aggregation) {
             return new AggregationEvaluator(object, aggregation.source(), bindings)
