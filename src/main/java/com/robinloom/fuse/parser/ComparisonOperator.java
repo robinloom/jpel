@@ -33,14 +33,4 @@ public enum ComparisonOperator {
             default -> null;
         };
     }
-
-    public ComparisonOperator flip() {
-        return switch (this) {
-            case LT -> GT;
-            case LTE -> GTE;
-            case GT -> LT;
-            case GTE -> LTE;
-            default -> this;
-        };
-    }
 }

@@ -2,8 +2,10 @@ package com.robinloom.fuse.evaluator;
 
 import com.robinloom.fuse.exception.EvaluatorException;
 import com.robinloom.fuse.exception.MissingParameterException;
+import com.robinloom.fuse.parser.ArithmeticOperator;
 import com.robinloom.fuse.parser.ComparisonOperator;
 import com.robinloom.fuse.parser.CollectionOperator;
+import com.robinloom.fuse.parser.ast.ArithmeticNode;
 import com.robinloom.fuse.parser.ast.BinaryLogicalNode;
 import com.robinloom.fuse.parser.ast.ConditionNode;
 import com.robinloom.fuse.parser.ast.CollectionConditionNode;
@@ -66,12 +68,7 @@ public final class FilterEvaluator {
     }
 
     private boolean evaluateCondition(Object candidate, ConditionNode condition) {
-        Object left = candidate;
-        for (String step : condition.propertyPath()) {
-            if (left == null) break;
-            left = reflect(left, step);
-        }
-
+        Object left = resolveValue(candidate, condition.left());
         Object right = resolveValue(candidate, condition.right());
 
         return compare(left, condition.comparisonOperator(), right);
@@ -218,6 +215,30 @@ public final class FilterEvaluator {
             }
             return right;
         }
+        if (valueNode instanceof ArithmeticNode(ValueNode left, ArithmeticOperator operator, ValueNode right)) {
+            return evaluateArithmetic(candidate, left, operator, right);
+        }
         throw new EvaluatorException("Unsupported value node type: " + valueNode.getClass().getSimpleName(), null);
+    }
+
+    private Object evaluateArithmetic(Object candidate, ValueNode leftNode, ArithmeticOperator operator, ValueNode rightNode) {
+        Object leftValue = resolveValue(candidate, leftNode);
+        Object rightValue = resolveValue(candidate, rightNode);
+
+        if (!(leftValue instanceof Number left) || !(rightValue instanceof Number right)) {
+            throw new EvaluatorException(
+                "Arithmetic operation (" + operator + ") requires numeric operands, but got " +
+                (leftValue != null ? leftValue.getClass().getSimpleName() : "null") + " and " +
+                (rightValue != null ? rightValue.getClass().getSimpleName() : "null"),
+                null
+            );
+        }
+
+        return switch (operator) {
+            case ADD -> left.doubleValue() + right.doubleValue();
+            case SUBTRACT -> left.doubleValue() - right.doubleValue();
+            case MULTIPLY -> left.doubleValue() * right.doubleValue();
+            case DIVIDE -> left.doubleValue() / right.doubleValue();
+        };
     }
 }

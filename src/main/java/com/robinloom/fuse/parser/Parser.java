@@ -218,51 +218,73 @@ public final class Parser {
     }
 
     private LogicalNode parseCondition() {
-        boolean literalFirst = TokenType.LITERAL_TYPES.contains(peek().type()) || peek().type() == TokenType.PARAMETER;
+        ValueNode left = parseArithmeticExpression();
 
-        if (literalFirst) {
-            ValueNode valueNode = parseValue();
-            Token operatorToken = consume(TokenType.EQEQ, TokenType.EXCLAM_EQ, TokenType.LT,
-                                          TokenType.LTE, TokenType.GT, TokenType.GTE);
-            ComparisonOperator comparisonOperator = ComparisonOperator.fromToken(operatorToken.type()).flip();
-            List<String> propertyPath = parsePropertyPath();
-            return new ConditionNode(propertyPath, comparisonOperator, valueNode);
-        }
-
-        List<String> propertyPath = parsePropertyPath();
-
-        CollectionOperator collectionOperator = asCollectionOperator(propertyPath.getLast());
-        if (collectionOperator != null && peek().type() == TokenType.LPAREN) {
-            propertyPath.removeLast();
-            if (propertyPath.isEmpty()) {
-                throw new ParserException("Collection operator requires a preceding property path", cursor);
+        if (left instanceof PropertyValueNode(List<String> path) && !path.isEmpty()) {
+            CollectionOperator collectionOperator = asCollectionOperator(path.getLast());
+            if (collectionOperator != null && peek().type() == TokenType.LPAREN) {
+                List<String> prefix = new ArrayList<>(path.subList(0, path.size() - 1));
+                if (prefix.isEmpty()) {
+                    throw new ParserException("Collection operator requires a preceding property path", cursor);
+                }
+                consume(TokenType.LPAREN);
+                LogicalNode predicate = parseLogicalExpression();
+                consume(TokenType.RPAREN);
+                return new CollectionConditionNode(prefix, collectionOperator, predicate);
             }
-            consume(TokenType.LPAREN);
-            LogicalNode predicate = parseLogicalExpression();
-            consume(TokenType.RPAREN);
-            return new CollectionConditionNode(propertyPath, collectionOperator, predicate);
         }
 
-        ComparisonOperator comparisonOperator = parsePropertyFirstOperator();
-        ValueNode valueNode = (comparisonOperator == ComparisonOperator.IN || comparisonOperator == ComparisonOperator.NOT_IN)
-                ? parseListValue()
-                : parseValue();
-        return new ConditionNode(propertyPath, comparisonOperator, valueNode);
-    }
-
-    private ComparisonOperator parsePropertyFirstOperator() {
         if (match(TokenType.NOT)) {
             consume(TokenType.IN);
-            return ComparisonOperator.NOT_IN;
+            return new ConditionNode(left, ComparisonOperator.NOT_IN, parseListValue());
         }
         if (match(TokenType.IN)) {
-            return ComparisonOperator.IN;
+            return new ConditionNode(left, ComparisonOperator.IN, parseListValue());
         }
+
         Token operatorToken = consume(TokenType.EQEQ, TokenType.EXCLAM_EQ, TokenType.LT,
                                       TokenType.LTE, TokenType.GT, TokenType.GTE,
                                       TokenType.CONTAINS, TokenType.STARTS_WITH,
                                       TokenType.ENDS_WITH, TokenType.MATCHES);
-        return ComparisonOperator.fromToken(operatorToken.type());
+        ComparisonOperator comparisonOperator = ComparisonOperator.fromToken(operatorToken.type());
+        ValueNode right = parseArithmeticExpression();
+        return new ConditionNode(left, comparisonOperator, right);
+    }
+
+    private ValueNode parseArithmeticExpression() {
+        ValueNode left = parseTerm();
+        while (peek().type() == TokenType.PLUS || peek().type() == TokenType.MINUS) {
+            ArithmeticOperator operator = peek().type() == TokenType.PLUS
+                ? ArithmeticOperator.ADD
+                : ArithmeticOperator.SUBTRACT;
+            advance();
+            ValueNode right = parseTerm();
+            left = new ArithmeticNode(left, operator, right);
+        }
+        return left;
+    }
+
+    private ValueNode parseTerm() {
+        ValueNode left = parseFactor();
+        while (peek().type() == TokenType.ASTERISK || peek().type() == TokenType.SLASH) {
+            ArithmeticOperator operator = peek().type() == TokenType.ASTERISK
+                ? ArithmeticOperator.MULTIPLY
+                : ArithmeticOperator.DIVIDE;
+            advance();
+            ValueNode right = parseFactor();
+            left = new ArithmeticNode(left, operator, right);
+        }
+        return left;
+    }
+
+    private ValueNode parseFactor() {
+        if (peek().type() == TokenType.PARAMETER) {
+            return parseParameter();
+        }
+        if (peek().type() == TokenType.IDENTIFIER) {
+            return new PropertyValueNode(parsePropertyPath());
+        }
+        return parseLiteral();
     }
 
     private LiteralNode parseListLiteral() {
@@ -312,16 +334,6 @@ public final class Parser {
             case "none" -> CollectionOperator.NONE;
             default -> null;
         };
-    }
-
-    private ValueNode parseValue() {
-        if (peek().type() == TokenType.PARAMETER) {
-            return parseParameter();
-        }
-        if (peek().type() == TokenType.IDENTIFIER) {
-            return new PropertyValueNode(parsePropertyPath());
-        }
-        return parseLiteral();
     }
 
     private ValueNode parseListValue() {

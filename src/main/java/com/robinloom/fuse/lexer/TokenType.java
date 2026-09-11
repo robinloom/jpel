@@ -1,7 +1,5 @@
 package com.robinloom.fuse.lexer;
 
-import java.util.Set;
-
 public enum TokenType {
     IDENTIFIER,
     NUMBER,
@@ -38,6 +36,10 @@ public enum TokenType {
 
     PARAMETER,
 
+    PLUS,
+    MINUS,
+    SLASH,
+
     PIPE,
     COUNT,
     COUNT_DISTINCT,
@@ -52,6 +54,4 @@ public enum TokenType {
 
     EOF;
 
-    public static final Set<TokenType> LITERAL_TYPES = Set.of(
-            TokenType.STRING, TokenType.NUMBER, TokenType.BOOLEAN, TokenType.NULL);
 }

@@ -17,10 +17,6 @@ public final class Evaluator {
     private final PathNode ast;
     private final FilterEvaluator filterEvaluator;
 
-    public Evaluator(Object root, PathNode ast) {
-        this(root, ast, Map.of());
-    }
-
     public Evaluator(Object root, PathNode ast, Map<String, Object> bindings) {
         this.root = root;
         this.ast = ast;
@@ -50,18 +46,29 @@ public final class Evaluator {
     }
 
     private Object flatMap(Collection<?> c, SegmentNode segmentNode) {
-        return c.stream()
-                .filter(Objects::nonNull)
-                .map(o -> reflect(o, segmentNode.name()))
-                .flatMap(result -> {
 
-                    if (result instanceof Collection<?> collection) {
+        Object result = c.stream()
+                         .filter(Objects::nonNull)
+                         .map(o -> reflect(o, segmentNode.name()))
+                         .flatMap(result1 -> {
+
+                    if (result1 instanceof Collection<?> collection) {
                         return collection.stream();
                     }
 
-                    return Stream.of(result);
+                    return Stream.of(result1);
                 })
-                .toList();
+                         .toList();
+
+        if (segmentNode.filter() != null) {
+            result = applyFilter(result, segmentNode.filter());
+        }
+
+        if (result instanceof Collection<?> col && segmentNode.index() != null) {
+            return getObjectByIndex(new ArrayList<>(col), segmentNode.index());
+        }
+
+        return result;
     }
 
     private Object map(Object object, SegmentNode segment) {

@@ -64,6 +64,14 @@ deals[salePrice < listPrice]
 persons[name == address.city]
 ```
 
+Either side of a comparison can also be an arithmetic expression (`+ - * /`, standard precedence, numeric operands only):
+
+```
+items[price * quantity > 100]
+deals[listPrice - salePrice > 50]
+orders[total / itemCount <= :maxAveragePrice]
+```
+
 ### String Operations
 ```
 items[name contains "book"]

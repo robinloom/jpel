@@ -66,6 +66,15 @@ public class Lexer {
             case '*':
                 addMetaChar(TokenType.ASTERISK);
                 break;
+            case '+':
+                addMetaChar(TokenType.PLUS);
+                break;
+            case '-':
+                addMinusOrNumber();
+                break;
+            case '/':
+                addMetaChar(TokenType.SLASH);
+                break;
             case '"':
                 addString();
                 break;
@@ -108,7 +117,7 @@ public class Lexer {
                     addNull();
                 } else if (Character.isJavaIdentifierStart(c)) {
                     addIdentifier();
-                } else if (Character.isDigit(c) || c == '-') {
+                } else if (Character.isDigit(c)) {
                     addNumber();
                 } else {
                     throw new LexerException("Unexpected token: " + c + " at position " + cursor);
@@ -161,10 +170,31 @@ public class Lexer {
 
     private void addNumber() {
         int startPosition = cursor;
-        while (!isEof() && (Character.isDigit(peek()) || peek() == '-' || peek() == '.')) {
+        if (peek() == '-') {
+            advance();
+        }
+        while (!isEof() && (Character.isDigit(peek()) || peek() == '.')) {
             advance();
         }
         tokens.add(new Token(TokenType.NUMBER, expression.substring(startPosition, cursor), startPosition));
+    }
+
+    private void addMinusOrNumber() {
+        if (isPrecededByValue()) {
+            addMetaChar(TokenType.MINUS);
+        } else {
+            addNumber();
+        }
+    }
+
+    private boolean isPrecededByValue() {
+        if (tokens.isEmpty()) {
+            return false;
+        }
+        TokenType last = tokens.getLast().type();
+        return last == TokenType.IDENTIFIER || last == TokenType.NUMBER || last == TokenType.STRING
+            || last == TokenType.BOOLEAN || last == TokenType.NULL
+            || last == TokenType.RPAREN || last == TokenType.RBRACKET;
     }
 
     private void addGt() {
