@@ -52,11 +52,13 @@ public final class Evaluator {
                          .map(o -> reflect(o, segmentNode.name()))
                          .flatMap(result1 -> {
 
-                    if (result1 instanceof Collection<?> collection) {
+                    Object unwrapped = (result1 instanceof Optional<?> optional) ? optional.orElse(null) : result1;
+
+                    if (unwrapped instanceof Collection<?> collection) {
                         return collection.stream();
                     }
 
-                    return Stream.of(result1);
+                    return Stream.of(unwrapped);
                 })
                          .toList();
 

@@ -12,6 +12,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class FUSEOptionalTest {
 
     @Test
+    void optionalPropertyUnwrapsWhenReachedThroughACollectionParent() {
+        // regression test: Evaluator.flatMap() used to leave raw Optional objects
+        // in the flattened result instead of unwrapping them like map() does,
+        // breaking further navigation (e.g. persons.address.city)
+        PersonWithOptionalAddress withAddress = new PersonWithOptionalAddress(Optional.of(new Address("Berlin")));
+        PersonWithOptionalAddress withoutAddress = new PersonWithOptionalAddress(Optional.empty());
+        PartyWithOptionalAddresses party = new PartyWithOptionalAddresses(List.of(withAddress, withoutAddress));
+
+        Object addresses = FUSE.eval("persons.address", party);
+        assertEquals(java.util.Arrays.asList(new Address("Berlin"), null), addresses);
+
+        // the null address from withoutAddress is dropped at this next navigation
+        // step (Evaluator.flatMap() filters null parent items before reflecting),
+        // consistent with how any other null-valued property is handled
+        Object cities = FUSE.eval("persons.address.city", party);
+        assertEquals(List.of("Berlin"), cities);
+    }
+
+    @Test
     void getOptionalResultWithValue() {
         Person bob = new Person(new Address("NYC"), "Bob", 20);
         Party party = new Party(List.of(bob));

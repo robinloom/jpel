@@ -9,6 +9,7 @@ public final class TestData {
     public record Person(Address address, String name, int age) {}
     public record PersonWithMultipleAddresses(List<Address> address) {}
     public record PersonWithOptionalAddress(Optional<Address> address) {}
+    public record PartyWithOptionalAddresses(List<PersonWithOptionalAddress> persons) {}
     public record Department(List<Address> addresses) {}
     public record Company(List<Department> departments) {}
     public record Party(List<Person> persons) {}
