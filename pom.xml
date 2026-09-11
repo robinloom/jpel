@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.robinloom</groupId>
-    <artifactId>jpel</artifactId>
+    <artifactId>fuse</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>JPEL</name>
-    <url>https://github.com/robinloom/jpel</url>
+    <name>FUSE</name>
+    <url>https://github.com/robinloom/fuse</url>
     <inceptionYear>2025</inceptionYear>
 
     <licenses>
@@ -19,10 +19,10 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git@github.com:robinloom/jpel.git</connection>
-        <developerConnection>scm:git:git@github.com:robinloom/jpel.git</developerConnection>
-        <url>git@github.com:robinloom/jpel.git</url>
-        <tag>jpel-0.1</tag>
+        <connection>scm:git:git@github.com:robinloom/fuse.git</connection>
+        <developerConnection>scm:git:git@github.com:robinloom/fuse.git</developerConnection>
+        <url>git@github.com:robinloom/fuse.git</url>
+        <tag>fuse-0.1</tag>
     </scm>
 
     <developers>

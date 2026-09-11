@@ -1,6 +1,6 @@
-# JPEL — Java Path Expression Language
+# FUSE — Fluent Unified Stream Expressions
 
-A lightweight, type-safe expression language for querying and filtering Java object graphs. Navigate nested objects, arrays, and collections transparently, with powerful filtering capabilities.
+A lightweight, type-safe query language for querying and filtering Java object graphs. Navigate nested objects, arrays, and collections transparently, with powerful filtering, aggregation, and sorting capabilities.
 
 ## Features
 
@@ -17,24 +17,24 @@ A lightweight, type-safe expression language for querying and filtering Java obj
 
 ```java
 // Simple navigation
-Object result = JPEL.eval("person.address.city", person);
+Object result = FUSE.eval("person.address.city", person);
 
 // Filtering
-List<Person> adults = JPEL.compile("persons[age >= 18]")
+List<Person> adults = FUSE.compile("persons[age >= 18]")
     .getResultList(data, Person.class);
 
 // Pre-compiled expressions with parameter bindings
-Expression expr = JPEL.compile("persons[age >= :minAge && status in :statuses]");
+Expression expr = FUSE.compile("persons[age >= :minAge && status in :statuses]");
 List<Person> filtered = expr
     .setParameter("minAge", 21)
     .setParameter("statuses", List.of("active", "vip"))
     .getResultList(data, Person.class);
 
 // Collection operations
-boolean hasExpensiveItems = JPEL.eval("orders[items.any(price > 100)]", store);
+boolean hasExpensiveItems = FUSE.eval("orders[items.any(price > 100)]", store);
 
 // Complex conditions
-List<Item> results = JPEL.compile("items[name contains :search && (category == :cat || featured == true)]")
+List<Item> results = FUSE.compile("items[name contains :search && (category == :cat || featured == true)]")
     .setParameter("search", "laptop")
     .setParameter("cat", "electronics")
     .getResultList(store, Item.class);
@@ -92,7 +92,7 @@ persons[age > 21 && (city == "NYC" || city == "LA")]
 Use named parameters (`:paramName`) to create reusable, pre-compiled expressions:
 
 ```java
-Expression filter = JPEL.compile("persons[age >= :minAge && name != :excluded]");
+Expression filter = FUSE.compile("persons[age >= :minAge && name != :excluded]");
 
 // Use with different values
 filter.setParameter("minAge", 18).setParameter("excluded", "Admin");
@@ -111,14 +111,14 @@ Missing a parameter at evaluation time raises `MissingParameterException`.
 
 ## API
 
-### Core Entry Point: `JPEL`
+### Core Entry Point: `FUSE`
 
 ```java
 // One-shot evaluation
-Object result = JPEL.eval(String expression, Object object);
+Object result = FUSE.eval(String expression, Object object);
 
 // Pre-compile for reuse
-Expression expr = JPEL.compile(String expression);
+Expression expr = FUSE.compile(String expression);
 ```
 
 ### Expression
@@ -142,11 +142,11 @@ Expression setParameter(String name, Object value);
 Result types are cast automatically when using `getSingleResult()` and `getResultList()`:
 
 ```java
-List<Person> adults = JPEL.compile("persons[age >= 18]")
+List<Person> adults = FUSE.compile("persons[age >= 18]")
     .getResultList(company, Person.class);
 // → returns List<Person>, safe cast
 
-Person ceo = JPEL.compile("company.employees[title == 'CEO']")
+Person ceo = FUSE.compile("company.employees[title == 'CEO']")
     .getSingleResult(company, Person.class);
 ```
 
@@ -174,7 +174,7 @@ All inherit from `RuntimeException`.
 ```xml
 <dependency>
     <groupId>com.robinloom</groupId>
-    <artifactId>jpel</artifactId>
+    <artifactId>fuse</artifactId>
     <version>0.1-SNAPSHOT</version>
 </dependency>
 ```
