@@ -4,6 +4,7 @@ import com.robinloom.fuse.exception.EvaluatorException;
 import com.robinloom.fuse.parser.ast.AggregationNode;
 import com.robinloom.fuse.parser.ast.AggregationType;
 import com.robinloom.fuse.parser.ast.ASTNode;
+import com.robinloom.fuse.parser.ast.DistinctNode;
 import com.robinloom.fuse.parser.ast.PathNode;
 import com.robinloom.fuse.parser.ast.SortNode;
 import com.robinloom.fuse.parser.ast.SegmentNode;
@@ -122,6 +123,9 @@ public final class AggregationEvaluator {
     private Object resolveSource(ASTNode source) {
         if (source instanceof SortNode sort) {
             return new SortEvaluator(root, sort.source(), bindings).eval(sort);
+        }
+        if (source instanceof DistinctNode distinct) {
+            return new DistinctEvaluator(root, distinct.source(), bindings).eval(distinct);
         }
         if (source instanceof PathNode path) {
             return new Evaluator(root, path, bindings).eval();

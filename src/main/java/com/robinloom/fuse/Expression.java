@@ -2,10 +2,12 @@ package com.robinloom.fuse;
 
 import com.robinloom.fuse.evaluator.Evaluator;
 import com.robinloom.fuse.evaluator.AggregationEvaluator;
+import com.robinloom.fuse.evaluator.DistinctEvaluator;
 import com.robinloom.fuse.evaluator.SortEvaluator;
 import com.robinloom.fuse.exception.NonUniqueResultException;
 import com.robinloom.fuse.parser.ast.ASTNode;
 import com.robinloom.fuse.parser.ast.AggregationNode;
+import com.robinloom.fuse.parser.ast.DistinctNode;
 import com.robinloom.fuse.parser.ast.PathNode;
 import com.robinloom.fuse.parser.ast.SortNode;
 
@@ -93,6 +95,10 @@ public class Expression {
         if (ast instanceof SortNode sort) {
             return new SortEvaluator(object, sort.source(), bindings)
                 .eval(sort);
+        }
+        if (ast instanceof DistinctNode distinct) {
+            return new DistinctEvaluator(object, distinct.source(), bindings)
+                .eval(distinct);
         }
         return new Evaluator(object, (PathNode) ast, bindings).eval();
     }

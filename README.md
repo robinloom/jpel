@@ -87,6 +87,24 @@ orders[!cancelled && items.any(price > 50)]
 persons[age > 21 && (city == "NYC" || city == "LA")]
 ```
 
+### Pipe Operations
+
+Navigation and filtering use `[...]` on a path segment. Sorting, deduplication, and aggregation are applied *after* navigation using the `|` (pipe) operator, and can be chained:
+
+```
+persons | sort(age)
+persons | sort(age desc)
+persons | distinct()
+persons | distinct(address.city)
+persons[age >= 18] | sort(name) | count()
+products | distinct(category) | count()
+```
+
+- `sort(property)` / `sort(property desc)` — sort a collection by a (possibly nested) property; defaults to ascending
+- `distinct()` — remove duplicate elements (by equality)
+- `distinct(property)` — keep only the first element per distinct (possibly nested) property value
+- `count()`, `sum(property)`, `avg(property)`, `min([property])`, `max([property])` — aggregate a collection into a single value; ends the pipe chain
+
 ## Parameter Bindings
 
 Use named parameters (`:paramName`) to create reusable, pre-compiled expressions:

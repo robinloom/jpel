@@ -27,6 +27,7 @@ public class Lexer {
         map.put("sort", TokenType.SORT);
         map.put("asc", TokenType.ASC);
         map.put("desc", TokenType.DESC);
+        map.put("distinct", TokenType.DISTINCT);
         KEYWORD_OPERATORS = Map.copyOf(map);
     }
 

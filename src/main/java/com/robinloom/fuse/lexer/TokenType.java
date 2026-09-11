@@ -47,6 +47,7 @@ public enum TokenType {
     SORT,
     ASC,
     DESC,
+    DISTINCT,
 
     EOF;
 

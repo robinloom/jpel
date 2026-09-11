@@ -32,11 +32,13 @@ public final class Parser {
         while (match(TokenType.PIPE)) {
             if (peek().type() == TokenType.SORT) {
                 result = parseSort(result);
+            } else if (peek().type() == TokenType.DISTINCT) {
+                result = parseDistinct(result);
             } else if (isAggregationFunction(peek().type())) {
                 result = parseAggregation(result);
                 break;
             } else {
-                throw new ParserException("Expected aggregation or sort function", cursor);
+                throw new ParserException("Expected aggregation, sort or distinct function", cursor);
             }
         }
 
@@ -70,6 +72,26 @@ public final class Parser {
 
         consume(TokenType.RPAREN);
         return new SortNode(source, property, direction);
+    }
+
+    private DistinctNode parseDistinct(ASTNode source) {
+        consume(TokenType.DISTINCT);
+        consume(TokenType.LPAREN);
+
+        java.util.Optional<String> property = java.util.Optional.empty();
+        if (peek().type() != TokenType.RPAREN) {
+            StringBuilder propBuilder = new StringBuilder();
+            propBuilder.append(consume(TokenType.IDENTIFIER).value());
+
+            while (match(TokenType.DOT)) {
+                propBuilder.append(".").append(consume(TokenType.IDENTIFIER).value());
+            }
+
+            property = java.util.Optional.of(propBuilder.toString());
+        }
+
+        consume(TokenType.RPAREN);
+        return new DistinctNode(source, property);
     }
 
     private AggregationNode parseAggregation(ASTNode source) {
