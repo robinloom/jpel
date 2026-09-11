@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public final class Evaluator {
@@ -52,13 +51,11 @@ public final class Evaluator {
                          .map(o -> reflect(o, segmentNode.name()))
                          .flatMap(result1 -> {
 
-                    Object unwrapped = (result1 instanceof Optional<?> optional) ? optional.orElse(null) : result1;
-
-                    if (unwrapped instanceof Collection<?> collection) {
+                    if (result1 instanceof Collection<?> collection) {
                         return collection.stream();
                     }
 
-                    return Stream.of(unwrapped);
+                    return Stream.of(result1);
                 })
                          .toList();
 
@@ -86,8 +83,6 @@ public final class Evaluator {
 
         if (result instanceof Collection<?> c && segment.index() != null) {
             return getObjectByIndex(new ArrayList<>(c), segment.index());
-        } else if (result instanceof Optional<?> o) {
-            return o.orElse(null);
         }
 
         return result;

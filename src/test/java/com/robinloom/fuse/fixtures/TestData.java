@@ -2,6 +2,9 @@ package com.robinloom.fuse.fixtures;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 public final class TestData {
 
@@ -24,6 +27,12 @@ public final class TestData {
     public record Store(List<Order> orders) {}
     public record Deal(String name, double salePrice, double listPrice) {}
     public record Catalog(List<Deal> deals) {}
+    public record ItemWithOptionalPrice(String name, Optional<Double> price) {}
+    public record Cart(List<ItemWithOptionalPrice> items) {}
+    public record Employee(String name, double salary) {}
+    public record Team(String name, Optional<List<Employee>> members) {}
+    public record Metric(OptionalInt quantity, OptionalLong total, OptionalDouble average) {}
+    public record Metrics(List<Metric> metrics) {}
 
     public record PersonPOJO(String name, int age) {
     }

@@ -4,6 +4,10 @@ import com.robinloom.fuse.exception.EvaluatorException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 public final class PropertyResolver {
 
@@ -17,18 +21,33 @@ public final class PropertyResolver {
         Class<?> clazz = object.getClass();
 
         Object result = tryInvokeMethod(object, clazz, property);
-        if (result != PROPERTY_NOT_FOUND) {
-            return result;
+        if (result == PROPERTY_NOT_FOUND) {
+            result = tryAccessField(object, clazz, property);
         }
 
-        result = tryAccessField(object, clazz, property);
-        if (result != PROPERTY_NOT_FOUND) {
-            return result;
+        if (result == PROPERTY_NOT_FOUND) {
+            throw new EvaluatorException(
+                    "Cannot resolve property '" + property + "' on type " + clazz.getSimpleName(),
+                    new NoSuchMethodException());
         }
 
-        throw new EvaluatorException(
-                "Cannot resolve property '" + property + "' on type " + clazz.getSimpleName(),
-                new NoSuchMethodException());
+        return unwrapOptional(result);
+    }
+
+    private static Object unwrapOptional(Object value) {
+        if (value instanceof Optional<?> optional) {
+            return optional.orElse(null);
+        }
+        if (value instanceof OptionalInt optional) {
+            return optional.isPresent() ? optional.getAsInt() : null;
+        }
+        if (value instanceof OptionalLong optional) {
+            return optional.isPresent() ? optional.getAsLong() : null;
+        }
+        if (value instanceof OptionalDouble optional) {
+            return optional.isPresent() ? optional.getAsDouble() : null;
+        }
+        return value;
     }
 
     private static Object tryInvokeMethod(Object object, Class<?> clazz, String property) {
