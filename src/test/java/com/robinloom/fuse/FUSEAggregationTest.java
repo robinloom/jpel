@@ -142,6 +142,54 @@ class FUSEAggregationTest {
     }
 
     @Test
+    void countDistinctByProperty() {
+        CarOwner owner = new CarOwner(List.of(
+            new Car("BMW", "M3", false),
+            new Car("BMW", "M5", false),
+            new Car("Tesla", "Model 3", true)
+        ));
+
+        Object result = FUSE.eval("cars | countDistinct(brand)", owner);
+
+        assertEquals(2, result);
+    }
+
+    @Test
+    void countDistinctWithoutProperty() {
+        Person bob1 = new Person(null, "Bob", 20);
+        Person bob2 = new Person(null, "Bob", 20);
+        Person alice = new Person(null, "Alice", 17);
+        Party party = new Party(List.of(bob1, bob2, alice));
+
+        Object result = FUSE.eval("persons | countDistinct()", party);
+
+        assertEquals(2, result);
+    }
+
+    @Test
+    void countDistinctFiltered() {
+        CarOwner owner = new CarOwner(List.of(
+            new Car("BMW", "M3", false),
+            new Car("BMW", "M5", true),
+            new Car("Tesla", "Model 3", true)
+        ));
+
+        Object result = FUSE.eval("cars[electric == true] | countDistinct(brand)", owner);
+
+        assertEquals(2, result);
+    }
+
+    @Test
+    void countDistinctEmptyResult() {
+        Person bob = new Person(null, "Bob", 20);
+        Party party = new Party(List.of(bob));
+
+        Object result = FUSE.eval("persons[age > 30] | countDistinct(name)", party);
+
+        assertEquals(0, result);
+    }
+
+    @Test
     void aggregationWithParameter() {
         Shop shop = new Shop(List.of(
             new Product("Widget", 50.0),

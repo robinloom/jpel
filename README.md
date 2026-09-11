@@ -103,7 +103,7 @@ products | distinct(category) | count()
 - `sort(property)` / `sort(property desc)` — sort a collection by a (possibly nested) property; defaults to ascending
 - `distinct()` — remove duplicate elements (by equality)
 - `distinct(property)` — keep only the first element per distinct (possibly nested) property value
-- `count()`, `sum(property)`, `avg(property)`, `min([property])`, `max([property])` — aggregate a collection into a single value; ends the pipe chain
+- `count()`, `countDistinct([property])`, `sum(property)`, `avg(property)`, `min([property])`, `max([property])` — aggregate a collection into a single value; ends the pipe chain
 
 ## Parameter Bindings
 

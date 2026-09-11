@@ -10,8 +10,10 @@ import com.robinloom.fuse.parser.ast.SortNode;
 import com.robinloom.fuse.parser.ast.SegmentNode;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public final class AggregationEvaluator {
 
@@ -37,6 +39,7 @@ public final class AggregationEvaluator {
 
         return switch (aggregation.type()) {
             case COUNT -> count(collection);
+            case COUNT_DISTINCT -> countDistinct(collection, aggregation.property());
             case SUM -> sum(collection, aggregation.property());
             case AVG -> avg(collection, aggregation.property());
             case MIN -> min(collection, aggregation.property());
@@ -46,6 +49,15 @@ public final class AggregationEvaluator {
 
     private int count(Collection<?> collection) {
         return collection.size();
+    }
+
+    private int countDistinct(Collection<?> collection, Optional<String> property) {
+        Set<Object> seenKeys = new LinkedHashSet<>();
+        for (Object item : collection) {
+            Object key = property.isPresent() ? resolveProperty(item, property.get()) : item;
+            seenKeys.add(key);
+        }
+        return seenKeys.size();
     }
 
     private double sum(Collection<?> collection, Optional<String> property) {

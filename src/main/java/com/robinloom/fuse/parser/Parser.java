@@ -47,8 +47,8 @@ public final class Parser {
     }
 
     private boolean isAggregationFunction(TokenType type) {
-        return type == TokenType.COUNT || type == TokenType.SUM || type == TokenType.AVG
-            || type == TokenType.MIN || type == TokenType.MAX;
+        return type == TokenType.COUNT || type == TokenType.COUNT_DISTINCT || type == TokenType.SUM
+            || type == TokenType.AVG || type == TokenType.MIN || type == TokenType.MAX;
     }
 
     private SortNode parseSort(ASTNode source) {
@@ -98,6 +98,7 @@ public final class Parser {
         Token token = peek();
         AggregationType type = switch (token.type()) {
             case COUNT -> AggregationType.COUNT;
+            case COUNT_DISTINCT -> AggregationType.COUNT_DISTINCT;
             case SUM -> AggregationType.SUM;
             case AVG -> AggregationType.AVG;
             case MIN -> AggregationType.MIN;

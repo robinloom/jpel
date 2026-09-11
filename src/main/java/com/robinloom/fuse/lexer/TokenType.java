@@ -40,6 +40,7 @@ public enum TokenType {
 
     PIPE,
     COUNT,
+    COUNT_DISTINCT,
     SUM,
     AVG,
     MIN,

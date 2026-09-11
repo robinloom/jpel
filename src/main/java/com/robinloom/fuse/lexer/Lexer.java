@@ -20,6 +20,7 @@ public class Lexer {
         map.put("in", TokenType.IN);
         map.put("not", TokenType.NOT);
         map.put("count", TokenType.COUNT);
+        map.put("countDistinct", TokenType.COUNT_DISTINCT);
         map.put("sum", TokenType.SUM);
         map.put("avg", TokenType.AVG);
         map.put("min", TokenType.MIN);
