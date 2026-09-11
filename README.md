@@ -57,6 +57,13 @@ orders[status != "cancelled"]
 products[price > 99.99]
 ```
 
+Comparisons aren't limited to a literal or parameter on the right side — a second property on the same object works too:
+
+```
+deals[salePrice < listPrice]
+persons[name == address.city]
+```
+
 ### String Operations
 ```
 items[name contains "book"]

@@ -10,6 +10,41 @@ import static org.junit.jupiter.api.Assertions.*;
 class FUSEFilteringTest {
 
     @Test
+    void propertyToPropertyComparison() {
+        Deal underpriced = new Deal("Laptop", 800.0, 1000.0);
+        Deal overpriced = new Deal("Mouse", 25.0, 20.0);
+        Deal evenPriced = new Deal("Keyboard", 50.0, 50.0);
+        Catalog catalog = new Catalog(List.of(underpriced, overpriced, evenPriced));
+
+        assertEquals(List.of(underpriced), FUSE.eval("deals[salePrice < listPrice]", catalog));
+        assertEquals(List.of(overpriced), FUSE.eval("deals[salePrice > listPrice]", catalog));
+        assertEquals(List.of(evenPriced), FUSE.eval("deals[salePrice == listPrice]", catalog));
+        assertEquals(List.of(underpriced, overpriced), FUSE.eval("deals[salePrice != listPrice]", catalog));
+    }
+
+    @Test
+    void propertyToPropertyComparisonFlipped() {
+        Deal underpriced = new Deal("Laptop", 800.0, 1000.0);
+        Deal overpriced = new Deal("Mouse", 25.0, 20.0);
+        Catalog catalog = new Catalog(List.of(underpriced, overpriced));
+
+        // literal-first syntax should also allow a property on the right (already supported),
+        // and a plain property-first comparison should resolve equivalently either way
+        assertEquals(List.of(underpriced), FUSE.eval("deals[listPrice > salePrice]", catalog));
+    }
+
+    @Test
+    void propertyToPropertyComparisonWithNullOnRightSidePath() {
+        // bob has no address, so the right-hand "address.city" path resolves to null;
+        // the comparison must not throw, just not match
+        Person bob = new Person(null, "Bob", 20);
+        Person alice = new Person(new Address("Alice"), "Alice", 17);
+        Party party = new Party(List.of(bob, alice));
+
+        assertEquals(List.of(alice), FUSE.eval("persons[name == address.city]", party));
+    }
+
+    @Test
     void filteredByNumber() {
         Person bob = new Person(null, "Bob", 20);
         Person alice = new Person(null, "Alice", 17);

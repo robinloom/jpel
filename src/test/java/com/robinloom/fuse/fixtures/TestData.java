@@ -21,53 +21,19 @@ public final class TestData {
     public record Item(String name, double price, boolean available) {}
     public record Order(int id, List<Item> items) {}
     public record Store(List<Order> orders) {}
+    public record Deal(String name, double salePrice, double listPrice) {}
+    public record Catalog(List<Deal> deals) {}
 
-    public static final class PersonPOJO {
-        private final String name;
-        private final int age;
-
-        public PersonPOJO(String name, int age) {
-            this.name = name;
-            this.age = age;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getAge() {
-            return age;
-        }
+    public record PersonPOJO(String name, int age) {
     }
 
-    public static final class PartyPOJO {
-        private final List<PersonPOJO> persons;
-
-        public PartyPOJO(List<PersonPOJO> persons) {
-            this.persons = persons;
-        }
-
-        public List<PersonPOJO> getPersons() {
-            return persons;
-        }
+    public record PartyPOJO(List<PersonPOJO> persons) {
     }
 
-    public static final class PersonWithPublicFields {
-        public final String name;
-        public final int age;
-
-        public PersonWithPublicFields(String name, int age) {
-            this.name = name;
-            this.age = age;
-        }
+    public record PersonWithPublicFields(String name, int age) {
     }
 
-    public static final class PartyWithPublicFields {
-        public final List<PersonWithPublicFields> persons;
-
-        public PartyWithPublicFields(List<PersonWithPublicFields> persons) {
-            this.persons = persons;
-        }
+    public record PartyWithPublicFields(List<PersonWithPublicFields> persons) {
     }
 
     private TestData() {

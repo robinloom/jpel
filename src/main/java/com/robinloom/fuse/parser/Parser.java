@@ -4,7 +4,6 @@ import com.robinloom.fuse.exception.ParserException;
 import com.robinloom.fuse.lexer.Token;
 import com.robinloom.fuse.lexer.TokenType;
 import com.robinloom.fuse.parser.ast.*;
-import com.robinloom.fuse.parser.CollectionOperator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -232,9 +231,9 @@ public final class Parser {
 
         List<String> propertyPath = parsePropertyPath();
 
-        CollectionOperator collectionOperator = asCollectionOperator(propertyPath.get(propertyPath.size() - 1));
+        CollectionOperator collectionOperator = asCollectionOperator(propertyPath.getLast());
         if (collectionOperator != null && peek().type() == TokenType.LPAREN) {
-            propertyPath.remove(propertyPath.size() - 1);
+            propertyPath.removeLast();
             if (propertyPath.isEmpty()) {
                 throw new ParserException("Collection operator requires a preceding property path", cursor);
             }
@@ -318,6 +317,9 @@ public final class Parser {
     private ValueNode parseValue() {
         if (peek().type() == TokenType.PARAMETER) {
             return parseParameter();
+        }
+        if (peek().type() == TokenType.IDENTIFIER) {
+            return new PropertyValueNode(parsePropertyPath());
         }
         return parseLiteral();
     }

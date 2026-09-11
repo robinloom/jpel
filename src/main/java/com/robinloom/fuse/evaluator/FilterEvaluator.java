@@ -11,6 +11,7 @@ import com.robinloom.fuse.parser.ast.LiteralNode;
 import com.robinloom.fuse.parser.ast.LogicalNode;
 import com.robinloom.fuse.parser.ast.NegationNode;
 import com.robinloom.fuse.parser.ast.ParameterNode;
+import com.robinloom.fuse.parser.ast.PropertyValueNode;
 import com.robinloom.fuse.parser.ast.ValueNode;
 
 import java.util.Collection;
@@ -71,7 +72,7 @@ public final class FilterEvaluator {
             left = reflect(left, step);
         }
 
-        Object right = resolveValue(condition.right());
+        Object right = resolveValue(candidate, condition.right());
 
         return compare(left, condition.comparisonOperator(), right);
     }
@@ -123,8 +124,8 @@ public final class FilterEvaluator {
             return ((Comparable<Object>) comparable).compareTo(right);
         } catch (ClassCastException e) {
             throw new EvaluatorException(
-                "Type mismatch in comparison: cannot compare " + left.getClass().getSimpleName() +
-                " with " + (right != null ? right.getClass().getSimpleName() : "null"),
+                    "Type mismatch in comparison: cannot compare " + left.getClass().getSimpleName() +
+                    " with " + right.getClass().getSimpleName(),
                 e
             );
         }
@@ -196,7 +197,7 @@ public final class FilterEvaluator {
         };
     }
 
-    private Object resolveValue(ValueNode valueNode) {
+    private Object resolveValue(Object candidate, ValueNode valueNode) {
         if (valueNode instanceof LiteralNode(Object literal)) {
             return literal;
         }
@@ -208,6 +209,14 @@ public final class FilterEvaluator {
                 );
             }
             return bindings.get(name);
+        }
+        if (valueNode instanceof PropertyValueNode(List<String> propertyPath)) {
+            Object right = candidate;
+            for (String step : propertyPath) {
+                if (right == null) break;
+                right = reflect(right, step);
+            }
+            return right;
         }
         throw new EvaluatorException("Unsupported value node type: " + valueNode.getClass().getSimpleName(), null);
     }
