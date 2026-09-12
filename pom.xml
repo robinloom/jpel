@@ -4,7 +4,7 @@
 
     <groupId>com.robinloom</groupId>
     <artifactId>fuse</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>FUSE</name>
     <description>A lightweight, type-safe query language for querying and filtering Java object graphs.</description>
@@ -23,7 +23,7 @@
         <connection>scm:git:git@github.com:robinloom/fuse.git</connection>
         <developerConnection>scm:git:git@github.com:robinloom/fuse.git</developerConnection>
         <url>git@github.com:robinloom/fuse.git</url>
-        <tag>fuse-0.1</tag>
+        <tag>fuse-0.1.0</tag>
     </scm>
 
     <developers>
