@@ -7,6 +7,7 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>FUSE</name>
+    <description>A lightweight, type-safe query language for querying and filtering Java object graphs.</description>
     <url>https://github.com/robinloom/fuse</url>
     <inceptionYear>2025</inceptionYear>
 
@@ -37,6 +38,12 @@
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>6.0.3</junit.version>
+
+        <!-- Plugin versions used to publish to Maven Central -->
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+        <central-publishing-maven-plugin.version>0.11.0</central-publishing-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -57,5 +64,101 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Central requires a *-sources.jar for every release -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Central requires a *-javadoc.jar for every release -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!--
+          Only active for releases (mvn -Prelease deploy). Keeps GPG signing and
+          the Central upload out of the default build, so contributors building
+          or testing locally never need a signing key or Central credentials.
+
+          Credentials are never stored in this file. They are resolved at build
+          time from the local ~/.m2/settings.xml (not part of this repository)
+          or from environment variables in CI, e.g.:
+
+            <settings>
+              <servers>
+                <server>
+                  <id>central</id>
+                  <username>${env.CENTRAL_TOKEN_USERNAME}</username>
+                  <password>${env.CENTRAL_TOKEN_PASSWORD}</password>
+                </server>
+              </servers>
+            </settings>
+
+          The GPG passphrase is picked up from the MAVEN_GPG_PASSPHRASE
+          environment variable by maven-gpg-plugin; it is not referenced here.
+        -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
