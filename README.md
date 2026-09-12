@@ -208,7 +208,7 @@ All inherit from `RuntimeException`.
 <dependency>
     <groupId>com.robinloom</groupId>
     <artifactId>fuse</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
