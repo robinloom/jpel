@@ -35,11 +35,9 @@ public final class SortEvaluator {
             );
         }
 
-        List<?> sorted = collection.stream()
-            .sorted(createComparator(sort.property(), sort.direction()))
-            .collect(Collectors.toList());
-
-        return sorted;
+        return collection.stream()
+                         .sorted(createComparator(sort.property(), sort.direction()))
+                         .collect(Collectors.toList());
     }
 
     @SuppressWarnings("unchecked")
