@@ -1,5 +1,10 @@
 # FUSE — Fluent Unified Stream Expressions
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.robinloom/fuse.svg)](https://central.sonatype.com/artifact/com.robinloom/fuse)
+[![Tests](https://github.com/robinloom/fuse/actions/workflows/tests.yml/badge.svg)](https://github.com/robinloom/fuse/actions/workflows/tests.yml)
+[![License](https://img.shields.io/github/license/robinloom/fuse.svg)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-25-orange.svg)](https://openjdk.org/projects/jdk/25/)
+
 A lightweight, type-safe query language for querying and filtering Java object graphs. Navigate nested objects, arrays, and collections transparently, with powerful filtering, aggregation, and sorting capabilities.
 
 ## Features
