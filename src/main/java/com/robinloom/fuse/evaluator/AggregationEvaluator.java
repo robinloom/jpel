@@ -2,12 +2,10 @@ package com.robinloom.fuse.evaluator;
 
 import com.robinloom.fuse.exception.EvaluatorException;
 import com.robinloom.fuse.parser.ast.AggregationNode;
-import com.robinloom.fuse.parser.ast.AggregationType;
 import com.robinloom.fuse.parser.ast.ASTNode;
 import com.robinloom.fuse.parser.ast.DistinctNode;
 import com.robinloom.fuse.parser.ast.PathNode;
 import com.robinloom.fuse.parser.ast.SortNode;
-import com.robinloom.fuse.parser.ast.SegmentNode;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -18,12 +16,10 @@ import java.util.Set;
 public final class AggregationEvaluator {
 
     private final Object root;
-    private final ASTNode sourceNode;
     private final Map<String, Object> bindings;
 
-    public AggregationEvaluator(Object root, ASTNode sourceNode, Map<String, Object> bindings) {
+    public AggregationEvaluator(Object root, Map<String, Object> bindings) {
         this.root = root;
-        this.sourceNode = sourceNode;
         this.bindings = bindings;
     }
 
@@ -143,7 +139,7 @@ public final class AggregationEvaluator {
             return new Evaluator(root, path, bindings).eval();
         }
         if (source instanceof AggregationNode agg) {
-            return new AggregationEvaluator(root, agg.source(), bindings).eval(agg);
+            return new AggregationEvaluator(root, bindings).eval(agg);
         }
         throw new EvaluatorException("Unsupported source type: " + source.getClass().getSimpleName(), null);
     }

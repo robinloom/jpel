@@ -89,7 +89,7 @@ public class Expression {
 
     public Object eval(Object object) {
         if (ast instanceof AggregationNode aggregation) {
-            return new AggregationEvaluator(object, aggregation.source(), bindings)
+            return new AggregationEvaluator(object, bindings)
                 .eval(aggregation);
         }
         if (ast instanceof SortNode sort) {

@@ -105,7 +105,7 @@ public final class SortEvaluator {
             return new Evaluator(root, path, bindings).eval();
         }
         if (source instanceof com.robinloom.fuse.parser.ast.AggregationNode agg) {
-            return new AggregationEvaluator(root, agg.source(), bindings).eval(agg);
+            return new AggregationEvaluator(root, bindings).eval(agg);
         }
         throw new EvaluatorException("Unsupported source type: " + source.getClass().getSimpleName(), null);
     }

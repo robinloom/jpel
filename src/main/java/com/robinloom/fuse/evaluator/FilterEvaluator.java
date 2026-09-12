@@ -26,10 +26,6 @@ public final class FilterEvaluator {
 
     private final Map<String, Object> bindings;
 
-    public FilterEvaluator() {
-        this(Map.of());
-    }
-
     public FilterEvaluator(Map<String, Object> bindings) {
         this.bindings = bindings;
     }

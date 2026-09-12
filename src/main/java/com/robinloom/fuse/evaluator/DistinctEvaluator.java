@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 public final class DistinctEvaluator {
@@ -75,7 +74,7 @@ public final class DistinctEvaluator {
             return new Evaluator(root, path, bindings).eval();
         }
         if (source instanceof AggregationNode agg) {
-            return new AggregationEvaluator(root, agg.source(), bindings).eval(agg);
+            return new AggregationEvaluator(root, bindings).eval(agg);
         }
         throw new EvaluatorException("Unsupported source type: " + source.getClass().getSimpleName(), null);
     }
