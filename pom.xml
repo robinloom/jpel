@@ -87,6 +87,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <!--
+                      lexer/parser/parser.ast/evaluator are internal implementation
+                      details, not part of the public API. They're public only
+                      because Java has no cross-package "internal" visibility;
+                      keep them out of the published API docs.
+                    -->
+                    <excludePackageNames>com.robinloom.fuse.lexer:com.robinloom.fuse.parser:com.robinloom.fuse.parser.ast:com.robinloom.fuse.evaluator</excludePackageNames>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
